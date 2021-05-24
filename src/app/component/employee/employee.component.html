@@ -1,0 +1,68 @@
+<div class="container">
+    <h2>Employee Data</h2>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label>Search By Name</label>
+                <div class="input-group mb-3">     
+                    <input type="text" class="form-control" placeholder="Search By Name" [(ngModel)]="searchText">
+                    <div class="input-group-append">
+                    <button class="btn btn-success" (click)="search()">Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label >Sort By:</label>
+                <select class="form-control" [(ngModel)]="selectedSort">
+                    <option *ngFor="let s of sorts" [value]="s">{{s}}</option>
+              </select>
+              
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary" (click)="findEmployee()">Find all Employee Exp > 2 Years</button>
+            <button type="button" class="btn btn-danger" (click)="deleteDevlopmentEmployee()">Delete Development Dept Employee</button> 
+            <button type="button" class="btn btn-primary" (click)="getEmployeeData()">Reload All Employee</button> 
+            <button type="button" class="btn btn-primary" (click)="getDistinctCount()">Get All Distinct Count</button> 
+        </div>
+    </div>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Joining Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let employee of employeeData|customSort:selectedSort">
+                <td>{{employee.id}}</td>
+                <td>{{employee.name}}</td>
+                <td>{{employee.department}}</td>
+                <td>{{convertDate(employee.joining_date)|date:'dd-MMM-yyyy'}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Department</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Department Name</th>
+                <th>Count</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let department of departmentDistinctCount">
+                <td>{{department.name}}</td>
+                <td>{{department.count}}</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
